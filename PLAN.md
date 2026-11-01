@@ -1,5 +1,7 @@
 Amine Binoumar
 
+###Modifier le plan !!
+
 ##Plan de test :
 Je vais utiliser pytest pour les tests unitaires, je vais utiliser coverage pour mesurer la couverture des tests, ruff pour tester la qualité du code et pdoc3 pour générer une documentation.
 Pour l’algo de triangulation j’ai opté pour de Delaunay qui offre une assez bonne complexité pour les tests tout en étant réalisable sans blocage majeur.

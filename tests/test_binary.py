@@ -2,16 +2,17 @@ from unittest.mock import patch
 import pytest
 import random
 
-# Binary
-def test_binary_value_match():
-    value = random.randint(1, 100)
-    result = encode(value) 
-    assert decode(result) == value
+from triangulator import (
+    encode_pointset,
+    decode_pointset,
+)
 
-def test_binary_value_unmatch():
-    value = 5
-    result = "0010"
-    assert decode(result) != value
+def test_binary_value_match():
+    points = [(0.0, 0.0), (1.5, 2.5), (-3.0, 4.0)]
+
+    value = encode_pointset(points)
+
+    assert decode_pointset(value) == points
 
 def test_binary_value_zero():
     value = 0
