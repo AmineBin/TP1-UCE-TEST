@@ -20,19 +20,12 @@ def test_binary_value_empty():
 
     assert decode_pointset(value) == points
 
-def test_binary_negative_value():
-    value = -5
-    result = encode(value)
-    assert decode(result) == value
-
-def test_binary_decimal_value():
+def test_binary_missing_point():
+    data = struct.pack("<I", 2)
+    data += struct.pack("<ff", 3.3, 4.4)
     with pytest.raises((TypeError, ValueError)):
-        encode(5.3)
+        decode_pointset(data)
 
-def test_binary_invalid_characters():
+def test_binary_too_short_length():
     with pytest.raises((TypeError, ValueError)):
-        decode("jizj")
-
-def test_binary_invalid_length():
-    with pytest.raises((TypeError, ValueError)):
-        decode("010")
+        decode_pointset(b"\x00\x01")
