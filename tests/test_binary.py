@@ -1,6 +1,5 @@
-from unittest.mock import patch
 import pytest
-import random
+import struct
 
 from triangulator import (
     encode_pointset,
@@ -14,10 +13,12 @@ def test_binary_value_match():
 
     assert decode_pointset(value) == points
 
-def test_binary_value_zero():
-    value = 0
-    result = encode(value)
-    assert decode(result) == value
+def test_binary_value_empty():
+    points = []
+
+    value = encode_pointset(points)
+
+    assert decode_pointset(value) == points
 
 def test_binary_negative_value():
     value = -5
