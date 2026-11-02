@@ -22,6 +22,9 @@ def test_triangle_created(mock_fetch):
 
     assert reponse.status_code == 200
 
+    points, triangles = decode_triangles(reponse.data)
+    assert len(triangles) == 1
+
 # Code 400
 def test_invalid_uuid():
     client = app.test_client()
@@ -29,6 +32,10 @@ def test_invalid_uuid():
     reponse = client.get("/triangulation/unuuidinvalide")
 
     assert reponse.status_code == 400
+
+    data = reponse.get_json()
+    assert "code" in data
+    assert "message" in data
 
 # Code 404
 @patch("triangulator.fetch_pointset")
@@ -39,6 +46,10 @@ def test_no_pointset(mock_fetch):
     reponse = client.get(f"/triangulation/{uuid.uuid4()}")
 
     assert reponse.status_code == 404
+
+    data = reponse.get_json()
+    assert "code" in data
+    assert "message" in data
 
 # Code 500
 @patch("triangulator.fetch_pointset")
@@ -51,6 +62,23 @@ def test_triangle_not_created(mock_fetch):
 
     assert reponse.status_code == 500
 
+    data = reponse.get_json()
+    assert "code" in data
+    assert "message" in data
+
+@patch("triangulator.fetch_pointset")
+def test_triangle_corrupted_pointset(mock_fetch):
+    mock_fetch.return_value = b"\x01\x00\x00\x00\x00"
+    client = app.test_client()
+    
+    reponse = client.get(f"/triangulation/{uuid.uuid4()}")
+
+    assert reponse.status_code == 500
+
+    data = reponse.get_json()
+    assert "code" in data
+    assert "message" in data
+
 # Code 503
 @patch("triangulator.fetch_pointset")
 def test_triangle_not_available(mock_fetch):
@@ -60,3 +88,7 @@ def test_triangle_not_available(mock_fetch):
     reponse = client.get(f"/triangulation/{uuid.uuid4()}")
    
     assert reponse.status_code == 503
+
+    data = reponse.get_json()
+    assert "code" in data
+    assert "message" in data

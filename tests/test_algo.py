@@ -11,15 +11,12 @@ def test_point_set_id_empty():
     assert is_point_set_id_empty(None) == True
 
 def test_triangle_with_aligned_points():
-
     points = [[0,1], [1, 1], [2,1]]
     with pytest.raises(ValueError):
         create_triangle(points)
 
 def test_point_not_aligned():
     assert is_point_aligned([0,0], [1, 1], [2,3]) == False
-
-
 
 def test_triangle_created_3_points():
     points  = [[0, 0], [1, 1], [2, 3]]

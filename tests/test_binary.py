@@ -66,6 +66,7 @@ def test_binary_triangles_empty():
     assert decoded_points == points
     assert decoded_triangles == triangle
 
+# Test le cas ou il manque un indice dans le triangle
 def test_binary_triangles_missing_indices():
     data = struct.pack("<I", 3)
     data += struct.pack("<ff", 0.0, 0.0)
