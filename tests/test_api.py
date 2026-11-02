@@ -3,7 +3,7 @@ import uuid
 import urllib.error
 
 from unittest.mock import patch
-from triangulator.app import app
+from triangulator import app
 
 def create_pointset(points):
     data = struct.pack("<I", len(points))
@@ -12,7 +12,7 @@ def create_pointset(points):
     return data
 
 # Code 200
-@patch("triangulator.app.fetch_pointset")
+@patch("triangulator.fetch_pointset")
 def test_triangle_created(mock_fetch):
     points = [(0, 0), (1, 0), (0, 1)]
     mock_fetch.return_value = create_pointset(points)
@@ -31,7 +31,7 @@ def test_invalid_uuid():
     assert reponse.status_code == 400
 
 # Code 404
-@patch("triangulator.app.fetch_pointset")
+@patch("triangulator.fetch_pointset")
 def test_no_pointset(mock_fetch):
     mock_fetch.side_effect = urllib.error.HTTPError("", 404, "", None, None)
     client = app.test_client()
@@ -41,7 +41,7 @@ def test_no_pointset(mock_fetch):
     assert reponse.status_code == 404
 
 # Code 500
-@patch("triangulator.app.fetch_pointset")
+@patch("triangulator.fetch_pointset")
 def test_triangle_not_created(mock_fetch):
     points = [(0, 1), (1, 1), (2, 1)]
     mock_fetch.return_value = create_pointset(points)
@@ -52,7 +52,7 @@ def test_triangle_not_created(mock_fetch):
     assert reponse.status_code == 500
 
 # Code 503
-@patch("triangulator.app.fetch_pointset")
+@patch("triangulator.fetch_pointset")
 def test_triangle_not_available(mock_fetch):
     mock_fetch.side_effect = urllib.error.HTTPError("", 503, "", None, None)
     client = app.test_client()
