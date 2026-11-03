@@ -1,4 +1,11 @@
 import pytest
+
+from triangulator import (
+    is_point_inside_circle,
+    is_point_set_id_empty,
+    is_point_aligned,
+    create_triangle
+)
     
 # Algo
 
@@ -86,7 +93,7 @@ def test_triangle_with_3_aligned_points():
 
 # Test le cas où 4 points sont alignés
 def test_triangle_with_4_aligned_points():
-    oints = [[0, 0], [1, 1], [2, 2], [3, 3]]
+    points = [[0, 0], [1, 1], [2, 2], [3, 3]]
     with pytest.raises(ValueError):
         create_triangle(points)
 
