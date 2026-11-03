@@ -8,6 +8,7 @@ from triangulator import (
     create_triangle
 )
 
+# Test le temps de conversion binaire avec un petit pointset
 @pytest.mark.perf
 def test_perf_binary_conversion_small_set():
     # Génération de 1000 points
@@ -25,6 +26,7 @@ def test_perf_binary_conversion_small_set():
     
     assert execution_time < 0.1
 
+# Test le temps de conversion binaire avec un pointset moyen
 @pytest.mark.perf
 def test_perf_binary_conversion_medium_set():
     # Génération de 50 000 points
@@ -42,6 +44,7 @@ def test_perf_binary_conversion_medium_set():
     
     assert execution_time < 0.5
 
+# Test le temps de conversion binaire avec un grand pointset
 @pytest.mark.perf
 def test_perf_binary_conversion_large_set():
     # Génération de 100 000 points
@@ -59,9 +62,10 @@ def test_perf_binary_conversion_large_set():
     
     assert execution_time < 1.0
 
+# Test le temps d'exécution de l'algorithme de triangulation
 @pytest.mark.perf
 def test_perf_triangulation_algorithm():
-    # Génération de 1 000 points random
+    # Génération de 1 000 points aléatoires
     points = [[random.uniform(0.0, 1000.0), random.uniform(0.0, 1000.0)] for _ in range(1000)]
     
     start_time = time.perf_counter()
