@@ -66,6 +66,7 @@ def test_perf_binary_conversion_large_set():
 @pytest.mark.perf
 def test_perf_triangulation_algorithm():
     # Génération de 1 000 points aléatoires
+    random.seed(10)
     points = [[random.uniform(0.0, 1000.0), random.uniform(0.0, 1000.0)] for _ in range(1000)]
     
     start_time = time.perf_counter()

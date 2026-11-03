@@ -82,8 +82,9 @@ def test_all_point_used():
 # Test le cas où il n'y a pas assez de points
 def test_triangle_not_enough_points():
     points = [[0, 0], [1, 1]]
-    
-    assert create_triangle(points) == []
+
+    with pytest.raises(ValueError):
+        create_triangle(points)
 
 # Test le cas où 3 points sont alignés
 def test_triangle_with_3_aligned_points():
