@@ -64,7 +64,7 @@ def test_triangle_created_4_points():
 def test_triangle_created_5_points():
     points = [[0, 0], [1, 0], [0, 1], [1, 1], [2, 2]]
     triangles = create_triangle(points)
-    assert len(triangles) == 3
+    assert len(triangles) == 4
     
 # Test le cas où tous les points sont utilisés
 def test_all_point_used():

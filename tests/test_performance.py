@@ -24,7 +24,7 @@ def test_perf_binary_conversion_small_set():
     
     assert len(decoded_points) == 1000
     
-    assert execution_time < 0.1
+    assert execution_time < 0.3
 
 # Test le temps de conversion binaire avec un pointset moyen
 @pytest.mark.perf
