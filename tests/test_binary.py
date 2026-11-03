@@ -24,6 +24,17 @@ def test_binary_value_empty():
 
     assert decode_pointset(value) == points
 
+# Test si l'encodage respecte exactement le format
+def test_binary_exact_format():
+    points = [(1.0, 2.0), (3.0, 4.0)]
+
+    value = encode_pointset(points)
+
+    expected = struct.pack("<I", 2)
+    expected += struct.pack("<ff", 1.0, 2.0)
+    expected += struct.pack("<ff", 3.0, 4.0)
+    assert value == expected
+
 # Test le cas ou le type transmis n'est pas une liste
 def test_binary_encode_invalid_type():
     with pytest.raises(TypeError):
