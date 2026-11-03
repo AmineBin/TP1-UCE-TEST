@@ -22,7 +22,7 @@ def test_triangle_created(mock_fetch):
 
     assert reponse.status_code == 200
 
-    points, triangles = decode_triangles(reponse.data)
+    _, triangles = decode_triangles(reponse.data)
     assert len(triangles) == 1
 
 # Code 400
