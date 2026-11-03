@@ -3,7 +3,10 @@ import uuid
 import urllib.error
 
 from unittest.mock import patch
-from triangulator import app
+from triangulator import (
+    app, 
+    decode_triangles
+)
 
 def create_pointset(points):
     data = struct.pack("<I", len(points))
@@ -72,7 +75,7 @@ def test_triangle_not_created(mock_fetch):
 
 # Test le cas où il n'y a pas assez de points
 @patch("triangulator.fetch_pointset")
-def test_triangle_insufficient_points(mock_fetch):
+def test_triangle_not_enough_points(mock_fetch):
     points = [(0, 0), (1, 1)]
     mock_fetch.return_value = create_pointset(points)
     client = app.test_client()
